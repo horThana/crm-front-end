@@ -16,7 +16,7 @@ import {
   ScrollArea,
   rem,
   useMantineTheme,
-
+  Modal
 } from '@mantine/core';
 import { MantineLogo } from '@mantinex/mantine-logo';
 import { useDisclosure } from '@mantine/hooks';
@@ -30,8 +30,7 @@ import {
   IconChevronDown,
 } from '@tabler/icons-react';
 import classes from '../styles/Header.module.css';
-
-
+import Login from '@/scene/Login';
 
 const mockdata = [
   {
@@ -69,6 +68,7 @@ const mockdata = [
 export function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+  const [modalOpened, { open: openModal, close: closeModal }] = useDisclosure(false);
   const theme = useMantineTheme();
 
   const links = mockdata.map((item) => (
@@ -152,8 +152,8 @@ export function Header() {
           </Group>
 
           <Group visibleFrom="sm">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            <Button variant="default" onClick={openModal}>Log in</Button>
+            <a href='/signup'><Button>Sign up</Button></a>
           </Group>
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
@@ -197,11 +197,18 @@ export function Header() {
           <Divider my="sm" />
 
           <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
+            <Button variant="default" onClick={openModal}>Log in</Button>
             <Button>Sign up</Button>
           </Group>
         </ScrollArea>
       </Drawer>
+
+      <Modal opened={modalOpened} onClose={closeModal} title="" centered>
+        {/* Modal content */}
+        <div>
+          {<Login/>}
+        </div>
+      </Modal>
     </Box>
   );
 }

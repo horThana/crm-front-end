@@ -19,6 +19,7 @@ const Error_404 = () => {
             page has been moved to another URL. If you think this is an error contact support.
           </Text>
           <Button variant="outline" size="md" mt="xl" className={classes.control}>
+          <a href='/home'></a>
             Get back to home page
           </Button>
         </div>

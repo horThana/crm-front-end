@@ -24,8 +24,8 @@ import { Link } from 'react-router-dom';
 const tabs = {
   account: [
     { link: '/billing', label: 'Billing', icon: IconReceipt2 },
-    { link: '/security', label: 'Subscription', icon: IconFingerprint },
-    { link: '/ssh-keys', label: 'Package', icon: IconKey },
+    { link: '/subscription', label: 'Subscription', icon: IconFingerprint },
+    { link: '/package', label: 'Package', icon: IconKey },
     { link: '/products', label: 'Products', icon: IconDatabaseImport },
     { link: '/error404', label: 'Notifications', icon: IconBellRinging },
     { link: '/error404', label: 'Authentication', icon: Icon2fa },
@@ -45,6 +45,15 @@ const tabs = {
 export function Sidebar() {
   const [section, setSection] = useState<'account' | 'general'>('account');
   const [active, setActive] = useState('Billing');
+
+  const [logout, setLogout] = useState('');
+
+  const logoutHandler = () => {
+    setLogout('Logging out...');
+    setTimeout(() => {
+      window.location.href = '/login';
+    }, 500);
+  }
 
   const links = tabs[section].map((item) => (
     <Link
@@ -90,10 +99,11 @@ export function Sidebar() {
           <span>Change account</span>
         </a>
 
-        <a href="/home" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <a href="/login" className={classes.link} onClick={logoutHandler}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </a>
+        {logout && <div className={classes.logoutMessage}>{logout}</div>}
       </div>
     </nav>
   );
