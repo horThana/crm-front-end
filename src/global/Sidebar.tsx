@@ -23,22 +23,23 @@ import { Link } from 'react-router-dom';
 
 const tabs = {
   account: [
-    { link: '/billing', label: 'Billing', icon: IconReceipt2 },
+   
     { link: '/subscription', label: 'Subscription', icon: IconFingerprint },
     { link: '/package', label: 'Package', icon: IconKey },
-    { link: '/products', label: 'Products', icon: IconDatabaseImport },
+    { link: '/products', label: 'Products', icon: IconDatabaseImport }, 
+    { link: '/billing', label: 'Billing', icon: IconReceipt2 },
     { link: '/error404', label: 'Notifications', icon: IconBellRinging },
     { link: '/error404', label: 'Authentication', icon: Icon2fa },
     { link: '/error404', label: 'Other Settings', icon: IconSettings },
   ],
   general: [
-    { link: '/orders', label: 'Orders', icon: IconShoppingCart },
-    { link: '/receipts', label: 'Receipts', icon: IconLicense },
-    { link: '/reviews', label: 'Reviews', icon: IconMessage2 },
-    { link: '/messages', label: 'Messages', icon: IconMessages },
-    { link: '/customers', label: 'Customers', icon: IconUsers },
-    { link: '/refunds', label: 'Refunds', icon: IconReceiptRefund },
-    { link: '/files', label: 'Files', icon: IconFileAnalytics },
+    { link: '/error404', label: 'Orders', icon: IconShoppingCart },
+    { link: '/error404', label: 'Receipts', icon: IconLicense },
+    { link: '/error404', label: 'Reviews', icon: IconMessage2 },
+    { link: '/error404', label: 'Messages', icon: IconMessages },
+    { link: '/error404', label: 'Customers', icon: IconUsers },
+    { link: '/error404', label: 'Refunds', icon: IconReceiptRefund },
+    { link: '/error404', label: 'Files', icon: IconFileAnalytics },
   ],
 };
 
@@ -49,6 +50,7 @@ export function Sidebar() {
   const [logout, setLogout] = useState('');
 
   const logoutHandler = () => {
+    localStorage.removeItem('token');
     setLogout('Logging out...');
     setTimeout(() => {
       window.location.href = '/login';

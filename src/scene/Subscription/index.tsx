@@ -1,12 +1,14 @@
-import { Flex, SimpleGrid, Container,Checkbox, Skeleton, Title, Text, Card, Group, Badge, Button,Center } from "@mantine/core";
+import { Flex, SimpleGrid, Container, Checkbox, Modal, Title, Text, Card, Group, Badge, Button, Center } from "@mantine/core";
 import { Sidebar } from "@/global/Sidebar"
-
-
+import { useDisclosure } from '@mantine/hooks';
+import PaymentForm from "@/scene/PaymentForm"
 
 
 const PRIMARY_COL_HEIGHT = 600;
 
 const Subscription = () => {
+    const [opened,{open, close}] = useDisclosure(false);
+
     return (
       <Flex>
         <Sidebar />
@@ -47,8 +49,8 @@ const Subscription = () => {
                     </Center>
                     
 
-                    <Button fullWidth mt="50">
-                      Upgrade to Pro
+                    <Button onClick={open} fullWidth mt="50">
+                     More Features
                     </Button>
               </Card>
              </div>
@@ -81,7 +83,7 @@ const Subscription = () => {
                     </Center>
                     
 
-                    <Button fullWidth mt="50" variant="filled">
+                    <Button  onClick={open}  fullWidth mt="50" variant="filled">
                       Upgrade to Pro
                     </Button>
               </Card>
@@ -100,14 +102,14 @@ const Subscription = () => {
                     </Center>
                   
                     <Center  mt="md" mb="xs">
-                        <Badge color="blue">All Features</Badge>
+                        <Badge color="red">All Features</Badge>
                     </Center>
 
                       <Text size="sm" color="dimmed" style={{ textAlign: 'center' }}>
                       Best for large teams or organizations.
                       </Text>
 
-                    <Center mt="md" pt="md" p={30} >
+                    <Center mt="md" pt="md" p={20} >
                       <ul>
                         <li>Unlimited Projects</li>
                         <li>50 GB Storage</li>
@@ -115,8 +117,10 @@ const Subscription = () => {
                       </ul>
                     </Center>
                     
-
-                    <Button fullWidth mt="50" variant="filled">
+                    <Modal opened={opened} onClose={close} title="Payment Service">
+                      <PaymentForm/>
+                  </Modal>
+                    <Button onClick={open} fullWidth mt="50" variant="filled">
                     Upgrade to Premium
                     </Button>
               </Card>

@@ -94,6 +94,7 @@ const Signup = () => {
           onChange={(e) => createName(e.currentTarget.value)}
           value={Name}
           required
+          maxLength={40}
         />
 
         <TextInput
@@ -102,6 +103,7 @@ const Signup = () => {
           onChange={(e) => createUsername(e.currentTarget.value)}
           value={Username}
           required
+          maxLength={20}
         />
 
         <TextInput
@@ -110,6 +112,7 @@ const Signup = () => {
           onChange={(e) => createEmail(e.currentTarget.value)}
           value={Email}
           required
+          maxLength={40}
         />
 
         <PasswordInput
@@ -119,6 +122,7 @@ const Signup = () => {
           value={Password}
           required
           mt="md"
+          maxLength={20}
         />
 
         <Group justify="space-between" mt="lg">

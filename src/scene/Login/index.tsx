@@ -9,9 +9,14 @@ import {
   Container,
   Group,
   Button,
+  Alert,
+
+ 
 } from '@mantine/core';
 import classes from '@/styles/Login.module.css';
 import { create } from 'zustand';
+import { IconInfoCircle } from '@tabler/icons-react';
+import { useState } from 'react';
 
 
 type State = {
@@ -31,33 +36,71 @@ const useStore = create<State & Action>((set) => ({
   createPassword: (Password) => set(() => ({ Password })),
 }));
 
+
 const Login = () => {
   const Email = useStore((state) => state.Email);
   const Password = useStore((state) => state.Password);
   const createEmail = useStore((state) => state.createEmail);
   const createPassword = useStore((state) => state.createPassword);
 
+  const isEmailValid = (email: string) => /\S+@\S+\.\S+/.test(email);
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // Prevent page reload
+    setLoading(true);
 
+    if (!isEmailValid(Email)) {
+      console.error('Invalid email');
+      const icon = <IconInfoCircle />;
+      return (
+        <Alert variant="light" color="red" title="Alert title" icon={icon}>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. At officiis, quae tempore necessitatibus placeat saepe.
+        </Alert>
+      );
+     
+    }
+
+    if (Password.length < 6 || Password.length > 20) {
+      console.error('Password must be between 6 and 20 characters');
+      return;
+    }
+
+
+    const allowedId = Email; // Replace with the specific ID you want to allow
     try {
-      const response = await fetch('http://127.0.0.1:8000/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ Email, Password }),
+      const response = await fetch(`http://127.0.0.1:8000/user/${allowedId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ Email, Password }),
       });
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
+        
       }
 
       const data = await response.json();
+      
       console.log('Login successful', data);
+      return(
+        <Alert variant="light" color="red" title="Alert title">
+        Login successful
+        </Alert>
+      )
+      
       // Handle successful login, e.g., redirect or store token
     } catch (error) {
-      console.error('There was a problem with the login request:', error);
+      return(
+        <Alert variant="light" color="red" title="Alert title">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. At officiis, quae tempore necessitatibus placeat saepe.
+        </Alert>
+      );
+    
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -78,7 +121,8 @@ const Login = () => {
             label="Email"
             placeholder="you@mantine.dev"
             value={Email}
-            onChange={(e) => createEmail(e.currentTarget.value)} // Bind input to Zustand store
+            onChange={(e) => createEmail(e.currentTarget.value)} 
+            maxLength={40}// Bind input to Zustand store
             required
           />
           <PasswordInput
@@ -87,6 +131,7 @@ const Login = () => {
             value={Password}
             onChange={(e) => createPassword(e.currentTarget.value)} // Bind input to Zustand store
             required
+            maxLength={20}
             mt="md"
           />
           <Group justify="space-between" mt="lg">
@@ -95,7 +140,7 @@ const Login = () => {
               Forgot password?
             </Anchor>
           </Group>
-          <Button type="submit" fullWidth mt="xl">
+          <Button type="submit" fullWidth mt="xl" loading={loading}>
             Sign in
           </Button>
         </Paper>

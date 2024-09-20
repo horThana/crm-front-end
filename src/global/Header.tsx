@@ -144,9 +144,9 @@ export function Header() {
               </HoverCard.Dropdown>
             </HoverCard>
             <a href="/dashboard" className={classes.link}>
-              Learn
+              Dashboard
             </a>
-            <a href="/404" className={classes.link}>
+            <a href="/Error404" className={classes.link}>
               Academy
             </a>
           </Group>

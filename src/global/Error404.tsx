@@ -5,6 +5,7 @@ import classes from '../styles/Error_404.module.css';
 
 
 
+
 const Error_404 = () => {
 
 
@@ -19,8 +20,9 @@ const Error_404 = () => {
             page has been moved to another URL. If you think this is an error contact support.
           </Text>
           <Button variant="outline" size="md" mt="xl" className={classes.control}>
-          <a href='/home'></a>
-            Get back to home page
+            <a href="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Get back to home page
+            </a>
           </Button>
         </div>
         <Image src="https://www.makewebeasy.com/th/blog/wp-content/uploads/2019/12/cover.png" className={classes.desktopImage} />

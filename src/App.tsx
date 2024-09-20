@@ -22,13 +22,6 @@ import Signup from './scene/Signup/index.tsx';
 
 
 function App() {
-  const token = localStorage.getItem('token');
-
-  if (!token) {
-    return (
-      <Signup />
-    );
-  }
 
   return (
     <MantineProvider>
